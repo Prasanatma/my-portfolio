@@ -69,7 +69,7 @@ function Header() {
           Prasanatma P
         </h1>
         <p style={{ color: '#00bcd4', fontSize: '1.4rem', fontWeight: '600', margin: '0 0 12px 0' }}>
-          Senior Software Engineer & Tech Lead
+          Senior Software Engineer
         </p>
         <p style={{ color: '#bbb', fontSize: '1.05rem', maxWidth: '600px', margin: '0 0 15px 0', lineHeight: '1.5' }}>
           8+ years of expertise in backend development, specialized in Java-based microservices, secure financial transaction systems, and AI agentic systems.

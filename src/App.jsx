@@ -12,6 +12,7 @@ import { careerData } from './careerData';
 
 function App() {
   const [activeGame, setActiveGame] = useState('none');
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   const appStyle = {
     fontFamily: '"Segoe UI", Roboto, Helvetica, Arial, sans-serif',
@@ -24,9 +25,10 @@ function App() {
     left: 0,
     width: '100vw',
     height: '100vh',
-    zIndex: -2,
+    zIndex: 0,
     objectFit: 'cover',
-    opacity: 0.15, // Adjust opacity to make it subtle (0.1 to 0.3 recommended)
+    opacity: videoLoaded ? 0.3 : 0, // Increased opacity for better visibility
+    transition: 'opacity 1s ease-in',
   };
 
   const overlayStyle = {
@@ -35,8 +37,8 @@ function App() {
     left: 0,
     width: '100vw',
     height: '100vh',
-    zIndex: -1,
-    background: 'linear-gradient(to bottom, rgba(6, 6, 15, 0.7), rgba(6, 6, 15, 0.9))',
+    zIndex: 1,
+    background: 'linear-gradient(to bottom, rgba(6, 6, 15, 0.5), rgba(6, 6, 15, 0.7))', // Lighter overlay
     pointerEvents: 'none',
   };
 
@@ -55,13 +57,28 @@ function App() {
         loop
         muted
         playsInline
+        preload="auto"
         style={videoBgStyle}
-        src={`${import.meta.env.BASE_URL}coding-bg.mp4`}
-      />
+        onError={(e) => {
+          console.error('Video failed to load:', e);
+          console.error('Video src:', e.target.src);
+          console.error('BASE_URL:', import.meta.env.BASE_URL);
+        }}
+        onLoadedData={() => {
+          console.log('Video loaded successfully');
+          setVideoLoaded(true);
+        }}
+        onCanPlay={() => {
+          console.log('Video can play');
+        }}
+      >
+        <source src="/my-portfolio/coding-bg.mp4" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
       {/* Dark overlay to ensure text readability */}
       <div style={overlayStyle}></div>
 
-      <div style={{ padding: '60px 20px', maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+      <div style={{ padding: '60px 20px', maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 2 }}>
         <Header />
         <hr style={{ borderColor: 'rgba(255,255,255,0.08)', margin: '40px 0' }} />
         

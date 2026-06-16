@@ -66,7 +66,7 @@ This portfolio combines professional career information with interactive AI-powe
 ```
 my-career-portfolio/
 ├── public/                      # Static assets
-│   ├── coding-bg.mp4           # Background video (unused in current version)
+│   ├── coding-bg.mp4           # Background video (animated coding theme)
 │   ├── favicon.svg             # Site favicon
 │   ├── icons.svg               # Icon sprite sheet
 │   └── profile.jpg             # Profile photo
@@ -363,8 +363,9 @@ export default defineConfig({
 
 ### Layout
 - **Max Width**: 900px for main content
-- **Grid Background**: Animated cyberpunk-style grid pattern
+- **Video Background**: Animated coding video with dark overlay (opacity: 0.15)
 - **Modal Overlay**: Full-screen game experience
+- **Layering**: Video (z-index: -2) → Dark overlay (z-index: -1) → Content (z-index: 1)
 
 ---
 
@@ -408,6 +409,47 @@ export default defineConfig({
 ---
 
 ## 🔧 Customization Guide
+
+### Customizing Video Background
+
+The website uses `coding-bg.mp4` as an animated background. To customize:
+
+**Adjust Video Opacity:**
+Edit `src/App.jsx` and modify the `videoBgStyle`:
+```javascript
+const videoBgStyle = {
+  // ...
+  opacity: 0.15, // Change value between 0.1 (subtle) to 0.3 (prominent)
+};
+```
+
+**Change Overlay Darkness:**
+Edit the `overlayStyle` in `src/App.jsx`:
+```javascript
+const overlayStyle = {
+  // ...
+  background: 'linear-gradient(to bottom, rgba(6, 6, 15, 0.7), rgba(6, 6, 15, 0.9))',
+  // Adjust the alpha values (0.7, 0.9) - lower = brighter, higher = darker
+};
+```
+
+**Replace Video:**
+1. Add your video file to the `public/` folder
+2. Update the video source in `src/App.jsx`:
+```javascript
+src={`${import.meta.env.BASE_URL}your-video-name.mp4`}
+```
+
+**Remove Video Background:**
+To revert to the grid pattern, replace the video element with:
+```javascript
+<div style={{
+  position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: -1,
+  backgroundImage: `linear-gradient(rgba(0, 188, 212, 0.04) 1px, transparent 1px), 
+                   linear-gradient(90deg, rgba(0, 188, 212, 0.04) 1px, transparent 1px)`,
+  backgroundSize: '40px 40px',
+}}></div>
+```
 
 ### Adding New Career Data
 

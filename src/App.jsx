@@ -18,10 +18,26 @@ function App() {
     color: '#ffffff', minHeight: '100vh', width: '100vw', position: 'relative', margin: 0, padding: 0, overflowX: 'hidden', backgroundColor: '#06060f', 
   };
 
-  const animatedBgStyle = {
-    position: 'fixed', top: 0, left: 0, width: '100vw', height: '100vh', zIndex: -1,
-    backgroundImage: `linear-gradient(rgba(0, 188, 212, 0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 188, 212, 0.04) 1px, transparent 1px)`,
-    backgroundSize: '40px 40px', backgroundPosition: 'center', maskImage: 'linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0.3))',
+  const videoBgStyle = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    zIndex: -2,
+    objectFit: 'cover',
+    opacity: 0.15, // Adjust opacity to make it subtle (0.1 to 0.3 recommended)
+  };
+
+  const overlayStyle = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100vw',
+    height: '100vh',
+    zIndex: -1,
+    background: 'linear-gradient(to bottom, rgba(6, 6, 15, 0.7), rgba(6, 6, 15, 0.9))',
+    pointerEvents: 'none',
   };
 
   const tabButtonStyle = (gameType) => ({
@@ -33,7 +49,17 @@ function App() {
 
   return (
     <div style={appStyle}>
-      <div style={animatedBgStyle}></div>
+      {/* Video Background */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        style={videoBgStyle}
+        src={`${import.meta.env.BASE_URL}coding-bg.mp4`}
+      />
+      {/* Dark overlay to ensure text readability */}
+      <div style={overlayStyle}></div>
 
       <div style={{ padding: '60px 20px', maxWidth: '900px', margin: '0 auto', position: 'relative', zIndex: 1 }}>
         <Header />
